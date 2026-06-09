@@ -17,11 +17,14 @@ mongoose.connect(process.env.MONGO_URI)
 // 2. Create a Database Blueprint (Schema) to save reports
 const ReportSchema = new mongoose.Schema({
     brandName: { type: String, required: true },
-    positivePercentage: Number,
-    negativePercentage: Number,
-    neutralPercentage: Number,
-    topPraises: [String],
-    topComplaints: [String],
+    positivePercentage: { type: Number, default: 0 },
+    negativePercentage: { type: Number, default: 0 },
+    neutralPercentage: { type: Number, default: 0 },
+    topPraises: { type: [String], default: [] },
+    topComplaints: { type: [String], default: [] },
+    keyEmotions: { type: [String], default: [] }, // New
+    trendingKeywords: { type: [String], default: [] }, // New
+    aiVerdict: { type: String, default: "No verdict generated." }, // New
     createdAt: { type: Date, default: Date.now }
 });
 const Report = mongoose.model('Report', ReportSchema);
